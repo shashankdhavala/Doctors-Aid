@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Patient Record</h3>
+{{ report_data }}
+{% for x in patient_data %}
+
+Patient First Name:{{x.first_name}}<br>
+Patient Last Name: {{x.last_name}}<br>
+Patient Age: {{x.Age}}<br>
+Patient Gender: {{ x.Gender}}<br>
+{% endfor %}
+
+{% for y in report_data %}
+
+Disease:{{y.disease_name}}
+Report:{{y.report_text}}
+<img src={{ y.Image_URL}} alt="Uploaded Image" width="500" height="600">
+<img src={{ y.Report_URL}} alt="Report" width="500" height="600">
+
+{% endfor %}
+
+</body>
+</html>
+

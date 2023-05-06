@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patient Registration</title>
+  </head>
+  <body>
+    <h1>Sign up</h1>
+    <form action="save_patient" method="post">
+      {% csrf_token %} {{ form.as_p }}
+      
+      {{message}}
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>

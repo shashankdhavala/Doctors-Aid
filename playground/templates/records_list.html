@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+            background-image: url("/media/tech-planet.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            padding-top: 50px;
+            color: white;
+            background-color: rgba(4, 0, 0, 0.5); /* Sets the background color to white with 70% opacity */
+            border-radius: 10px; /* Adds rounded corners to the box */
+            padding: 20px;
+
+            position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+        }
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+        a {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 2px solid black;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            margin: 10px;
+        }
+
+        a:hover {
+            background-color: white;
+            color: black;
+        }
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+</style>
+</head>
+<body>
+  <div class="container">
+<h1>Patient's Reports</h1>
+{% for x in patient_data  %}
+<h3>Patient's name:{{x.first_name}}</h3>
+{% endfor %}
+<table>
+  <tr>
+    <th>Report ID</th>
+    <th>Disease Name</th>
+    <th>Report time</th>
+  </tr>
+  {% for x in records  %}
+    <tr>
+        <form action='http://127.0.0.1:8000/patient_record/' method="POST">
+            {% csrf_token %} 
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="hidden" name="doc_id" value="{{ doc_id }}">
+        <input type="hidden" name="report_id" value="{{ x.report_id }}">
+
+        <td><input type="submit" value="{{ x.report_id }}" style="background-color: black; color: white; font-size: 16px; padding: 20px 30px; border: none; border-radius: 4px; cursor: pointer;"></td>
+        </form>
+
+    
+
+      <td>{{ x.disease_name}}</td>
+      <td>{{ x.timestamp }}</td>
+    </tr>
+
+  {% endfor %}
+
+  
+  <form id="form2" action='http://127.0.0.1:8000/add_report/' method="POST">
+            {% csrf_token %} 
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="hidden" name="doc_id" value="{{ doc_id }}">
+       
+    </form>
+
+    <input type="submit" value="Add report" form="form2" style="background-color: black; color: white; font-size: 16px; padding: 20px 30px; border: none; border-radius: 4px; cursor: pointer;"><br><br>
+
+</table>
+</div>
+<form  action='http://127.0.0.1:8000/' >
+  {% csrf_token %} 
+<input type="submit" value="Logout" style="background-color: black; color: white; font-size: 16px; padding: 20px 30px; border: none; border-radius: 4px; cursor: pointer;">
+
+</form>
+</body>
+</html>
